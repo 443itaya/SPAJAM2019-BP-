@@ -39,6 +39,7 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
 
     ImageView imageView;
     TextView textCount;
+    TextView textView;
 
     int mp3;
     SoundPool soundPool;
@@ -80,6 +81,9 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
         imageView = (ImageView) findViewById(R.id.gifView);
         target = new GlideDrawableImageViewTarget(imageView);
         Glide.with(this).load(R.drawable.fortune1).into(target);
+
+//        Intent intent = new Intent(this, PlaceActivity.class);
+//        startActivityForResult(intent, REQUESTCODE_TEST);
     }
 
     @Override
