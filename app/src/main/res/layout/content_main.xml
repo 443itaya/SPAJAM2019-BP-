@@ -210,15 +210,15 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/button_go"
-        android:text="Go!"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            android:id="@+id/button"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/button_go"
+            android:text="Go!"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" android:onClick="onButtonClick"/>
 
 </android.support.constraint.ConstraintLayout>
