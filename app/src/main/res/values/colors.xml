@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#E4734F</color>
+    <color name="colorPrimaryDark">#E4734F</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="radio_line1">#613121</color>
+    <color name="radio_bg_checked1">#ff3d00</color>
+    <color name="radio_bg_uncheck1">#E4734F</color>
+    <color name="radio_text_checked1">#cb000000</color>
+    <color name="radio_text_uncheck1">#e4e4e4</color>
+
+    <color name="radio_line2">#613121</color>
+    <color name="radio_bg_checked2">#ff3d00</color>
+    <color name="radio_bg_uncheck2">#4fe4a8</color>
+    <color name="radio_text_checked2">#cb000000</color>
+    <color name="radio_text_uncheck2">#e4e4e4</color>
+
+    <color name="normal_text">#2d2d2d</color>
+
 </resources>
