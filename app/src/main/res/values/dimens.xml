@@ -4,7 +4,7 @@
     <dimen name="radio_width">100dp</dimen>
     <dimen name="radio_height">100dp</dimen>
 
-    <dimen name="normal_textSize">20sp</dimen>
+    <dimen name="normal_textSize">22sp</dimen>
 
     <dimen name="icon_size">30dp</dimen>
 </resources>

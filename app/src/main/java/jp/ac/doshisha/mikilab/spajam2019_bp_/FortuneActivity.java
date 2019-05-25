@@ -50,8 +50,6 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fortune);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
