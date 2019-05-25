@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 選択時の文字色 -->
+    <item android:state_checked="true" android:color="@color/radio_text_checked1" />
+    <!-- 非選択時の文字色 -->
+    <item android:state_checked="false" android:color="@color/radio_text_uncheck1" />
+</selector>
