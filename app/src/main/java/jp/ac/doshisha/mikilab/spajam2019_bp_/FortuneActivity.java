@@ -16,7 +16,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.util.List;
 
@@ -34,11 +37,14 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
 
     private static final int REQUESTCODE_TEST = 1;
 
+    ImageView imageView;
     TextView textCount;
 
     int mp3;
     SoundPool soundPool;
     public void play_mp3(){soundPool.play(mp3,1f , 1f, 0, 0, 1f);};
+
+    GlideDrawableImageViewTarget target;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +53,10 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        textCount  = findViewById(R.id.textView4);
-        textCount.setText(String.valueOf(shakeCount));
+//        textCount  = findViewById(R.id.textView4);
+//        textCount.setText(String.valueOf(shakeCount));
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
@@ -78,6 +76,10 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
         }
         //音楽の読み込み
         mp3 = soundPool.load(this, R.raw.syakasyaka, 1);
+
+        imageView = (ImageView) findViewById(R.id.gifView);
+        target = new GlideDrawableImageViewTarget(imageView);
+        Glide.with(this).load(R.drawable.fortune1).into(target);
     }
 
     @Override
@@ -134,7 +136,11 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
                 float speed = Math.abs(x + y + z - beforeX - beforeY - beforeZ) / diffTime * 10000;
 
                 if( speed > shakeSpeed && shakeCount <= 10){
-                    textCount.setText(String.valueOf(shakeCount));
+                    if(shakeCount % 2 == 0) {
+                        Glide.with(this).load(R.drawable.fortune2).into(target);
+                    }else{
+                        Glide.with(this).load(R.drawable.fortune1).into(target);
+                    }
                     play_mp3();
 
                     if(++shakeCount > 10){

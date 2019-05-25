@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         String json = "{\"lat\":35,\"lng\":135,\"type\":0,\"dis\":0}";
 //        post(json);
-//        Intent intent = new Intent(this, FortuneActivity.class);
-//        startActivityForResult(intent, REQUESTCODE_TEST);
+        Intent intent = new Intent(this, FortuneActivity.class);
+        startActivityForResult(intent, REQUESTCODE_TEST);
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         GPSLocationListener locationListener = new GPSLocationListener();
