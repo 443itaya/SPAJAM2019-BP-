@@ -41,11 +41,9 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
     TextView textCount;
     TextView textView;
 
-    int mp3a;
-    int mp3b;
+    int mp3;
     SoundPool soundPool;
-    public void play_mp3a(){soundPool.play(mp3a,1f , 1f, 0, 0, 1f);};
-    public void play_mp3b(){soundPool.play(mp3b,1f , 1f, 0, 0, 1f);};
+    public void play_mp3(){soundPool.play(mp3,1f , 1f, 0, 0, 1f);};
 
     GlideDrawableImageViewTarget target;
 
@@ -75,14 +73,15 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
                     .setMaxStreams(2)
                     .build();
         }
-
-        mp3a = soundPool.load(this, R.raw.syakasyaka, 1);
-        mp3b = soundPool.load(this, R.raw.shakin1, 1);
+        //音楽の読み込み
+        mp3 = soundPool.load(this, R.raw.syakasyaka, 1);
 
         imageView = (ImageView) findViewById(R.id.gifView);
         target = new GlideDrawableImageViewTarget(imageView);
         Glide.with(this).load(R.drawable.fortune1).into(target);
 
+//        Intent intent = new Intent(this, PlaceActivity.class);
+//        startActivityForResult(intent, REQUESTCODE_TEST);
     }
 
     @Override
@@ -144,12 +143,9 @@ public class FortuneActivity extends AppCompatActivity implements SensorEventLis
                     }else{
                         Glide.with(this).load(R.drawable.fortune1).into(target);
                     }
-                    if(shakeCount < 8) {
-                        play_mp3a();
-                    }
+                    play_mp3();
 
                     if(++shakeCount > 10){
-                        play_mp3b();
                         Intent intent = new Intent(this, PlaceActivity.class);
                         startActivityForResult(intent, REQUESTCODE_TEST);
                         finish();
