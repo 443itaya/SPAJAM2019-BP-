@@ -42,11 +42,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     int id;
 
     private String fileName = "res.txt";
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.textView6);
+        textView.setText("現在値；"+lat+", "+lng);
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) !=

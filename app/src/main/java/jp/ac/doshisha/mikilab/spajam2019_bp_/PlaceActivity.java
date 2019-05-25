@@ -88,6 +88,16 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Nav barの非表示化
+        View decor = this.getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng place = new LatLng(lat, lng);
@@ -115,5 +125,15 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         }
 
         return text;
+    }
+
+    public void onButtonClick(View v) {
+        switch (v.getId()) {
+            case R.id.button2:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivityForResult(intent, REQUESTCODE_TEST);
+                finish();
+                break;
+        }
     }
 }
