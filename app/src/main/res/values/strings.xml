@@ -4,4 +4,6 @@
     <string name="title_activity_fortune">FortuneActivity</string>
     <string name="title_activity_place">PlaceActivity</string>
 
+    <string name="google_maps_key">AIzaSyCjkB7m10FzO5J7CjSaMh3r1EeErOk3eW8</string>
+
 </resources>

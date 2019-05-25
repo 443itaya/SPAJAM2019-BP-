@@ -197,6 +197,7 @@
                 android:textSize="24sp" />
 
             <RadioButton
+                android:id="@+id/radioButton6"
                 android:layout_width="@dimen/radio_width"
                 android:layout_height="@dimen/radio_height"
                 android:layout_weight="1"
