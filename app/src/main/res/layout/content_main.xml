@@ -110,7 +110,7 @@
                 android:button="@null"
                 android:drawableBottom="@drawable/icon_eat"
                 android:gravity="center"
-                android:text="EAT"
+                android:text="食べる"
                 android:textColor="@drawable/radio_text_color1"
                 android:textSize="21sp" />
 

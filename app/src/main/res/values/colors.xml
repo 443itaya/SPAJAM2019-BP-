@@ -5,16 +5,19 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="radio_line1">#613121</color>
-    <color name="radio_bg_checked1">#ff3d00</color>
-    <color name="radio_bg_uncheck1">#E4734F</color>
+    <color name="radio_bg_checked1">#dc3500</color>
+    <color name="radio_bg_uncheck1">#715454</color>
     <color name="radio_text_checked1">#cb000000</color>
-    <color name="radio_text_uncheck1">#e4e4e4</color>
+    <color name="radio_text_uncheck1">#dfd0d0</color>
 
     <color name="radio_line2">#613121</color>
-    <color name="radio_bg_checked2">#ff3d00</color>
-    <color name="radio_bg_uncheck2">#4fe4a8</color>
+    <color name="radio_bg_checked2">#dc3500</color>
+    <color name="radio_bg_uncheck2">#715454</color>
     <color name="radio_text_checked2">#cb000000</color>
-    <color name="radio_text_uncheck2">#e4e4e4</color>
+    <color name="radio_text_uncheck2">#dfd0d0</color>
+
+    <color name="button_go">#B7282E</color>
+    <color name="button_go_tint">#aad9a3a6</color>
 
     <color name="normal_text">#2d2d2d</color>
 
