@@ -53,7 +53,7 @@
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ジャンルを選ぶのだ"
+            android:text="何する？"
             android:textColor="@color/normal_text"
             android:textSize="@dimen/normal_textSize" />
 
@@ -112,7 +112,7 @@
                 android:gravity="center"
                 android:text="食べる"
                 android:textColor="@drawable/radio_text_color1"
-                android:textSize="21sp" />
+                android:textSize="22sp" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
@@ -124,9 +124,9 @@
                 android:button="@null"
                 android:drawableBottom="@drawable/icon_activity"
                 android:gravity="center"
-                android:text="ACTIVITY"
+                android:text="遊ぶ"
                 android:textColor="@drawable/radio_text_color1"
-                android:textSize="21sp" />
+                android:textSize="22sp" />
 
             <RadioButton
                 android:id="@+id/radioButton3"
@@ -137,9 +137,9 @@
                 android:button="@null"
                 android:drawableBottom="@drawable/icon_spot"
                 android:gravity="center"
-                android:text="SPOT"
+                android:text="訪れる"
                 android:textColor="@drawable/radio_text_color1"
-                android:textSize="21sp" />
+                android:textSize="22sp" />
 
         </RadioGroup>
 
@@ -161,7 +161,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ここからの距離を選ぶのだ"
+            android:text="徒歩でいくなら？"
             android:textColor="@color/normal_text"
             android:textSize="@dimen/normal_textSize" />
 
@@ -179,9 +179,9 @@
                 android:background="@drawable/radio_group2"
                 android:button="@null"
                 android:gravity="center"
-                android:text="5 km"
+                android:text="すぐそこ"
                 android:textColor="@drawable/radio_text_color2"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
 
             <RadioButton
                 android:id="@+id/radioButton5"
@@ -192,9 +192,9 @@
                 android:button="@null"
                 android:gravity="center"
                 android:layout_marginHorizontal="10dp"
-                android:text="50 km"
+                android:text="ほどほど"
                 android:textColor="@drawable/radio_text_color2"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
 
             <RadioButton
                 android:id="@+id/radioButton6"
@@ -204,9 +204,9 @@
                 android:background="@drawable/radio_group2"
                 android:button="@null"
                 android:gravity="center"
-                android:text="100 km"
+                android:text="歩きたい"
                 android:textColor="@drawable/radio_text_color2"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
         </RadioGroup>
     </LinearLayout>
 
