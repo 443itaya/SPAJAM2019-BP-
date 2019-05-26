@@ -4,20 +4,20 @@
     <color name="colorPrimaryDark">#E4734F</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="radio_line1">#613121</color>
-    <color name="radio_bg_checked1">#dc3500</color>
-    <color name="radio_bg_uncheck1">#715454</color>
-    <color name="radio_text_checked1">#cb000000</color>
-    <color name="radio_text_uncheck1">#dfd0d0</color>
+    <color name="radio_line1">#603f20</color>
+    <color name="radio_bg_checked1">#FF7846</color>
+    <color name="radio_bg_uncheck1">#FFA852</color>
+    <color name="radio_text_checked1">#0a0909</color>
+    <color name="radio_text_uncheck1">#fcededed</color>
 
-    <color name="radio_line2">#613121</color>
-    <color name="radio_bg_checked2">#dc3500</color>
-    <color name="radio_bg_uncheck2">#715454</color>
-    <color name="radio_text_checked2">#cb000000</color>
-    <color name="radio_text_uncheck2">#dfd0d0</color>
+    <color name="radio_line2">#603f20</color>
+    <color name="radio_bg_checked2">#FF7846</color>
+    <color name="radio_bg_uncheck2">#FFA852</color>
+    <color name="radio_text_checked2">#0a0909</color>
+    <color name="radio_text_uncheck2">#fcededed</color>
 
-    <color name="button_go">#B7282E</color>
-    <color name="button_go_tint">#aad9a3a6</color>
+    <color name="button_go">#D62929</color>
+    <color name="button_go_tint">#f19e9e</color>
 
     <color name="normal_text">#2d2d2d</color>
 
