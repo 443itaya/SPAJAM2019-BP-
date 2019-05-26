@@ -24,16 +24,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import okhttp3.*;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class MainActivity extends AppCompatActivity implements LocationListener{
     String url = "https://asia-northeast1-spajam-pipeline.cloudfunctions.net/GetResult?message=ほげほげ";
     private String res = "{“name”: “六本木 樓外樓“, “tel”: “075-365-3320\", “address”: “日本、〒600-8216 京都府京都市下京区東塩小路烏丸通塩小路下ル ＪＲ京都駅中央口 ホテルグランヴィア京都 １５Ｆ“, “opening_now”: “null”, “price_level”:“null”, “website”: “http://www.granvia-kyoto.co.jp/rest/roppongi.php“, “lat”: 34.985722, “lng”: 135.7585679}";
     private static final int REQUESTCODE_TEST = 1;
+    private final int REQUEST_PERMISSION = 10;
 
-    private double lat = 34.702485;
-    private double lng = 135.49595;
+    private double lat;
+    private double lng;
     private int type = -1;
     private int dis = -1;
 
@@ -42,7 +42,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     int id;
 
     private String fileName = "res.txt";
+    private String fileName1 = "lat.txt";
+    private String fileName2 = "lng.txt";
     TextView textView;
+
+    private String loc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +54,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.textView6);
-        textView.setText("現在値；"+lat+", "+lng);
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,},
-                    1000);
+        if(lat > 0 && lng > 0) {
+            textView.setText("現在値；" + lat + ", " + lng);
         }
-        else{
-            locationStart();
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    1000, 50, this);
-
-        }
+        checkPermission();
 
         RadioGroup group = (RadioGroup)findViewById(R.id.radio_places);
         id = IndexToId1(type);
@@ -91,6 +85,49 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         });
 
         saveFile(fileName, res);
+    }
+
+    // 位置情報許可の確認
+    public void checkPermission() {
+        // 既に許可している
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+
+            locationActivity();
+        }
+        // 拒否していた場合
+        else {
+            requestLocationPermission();
+        }
+    }
+
+    // 許可を求める
+    private void requestLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSION);
+
+        } else {
+            Toast toast = Toast.makeText(this,
+                    "許可されないとアプリが実行できません", Toast.LENGTH_SHORT);
+            toast.show();
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,},
+                    REQUEST_PERMISSION);
+
+        }
+    }
+
+
+    // Intent でLocation
+    private void locationActivity() {
+//        Intent intent1 = new Intent(getApplication(), LocationActivity.class);
+//        startActivity(intent1);
+
     }
 
     int IndexToId1(int index){
@@ -172,6 +209,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 toast.show();
             }
         }
+        if (requestCode == REQUEST_PERMISSION) {
+            // 使用が許可された
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationActivity();
+
+            } else {
+                // それでも拒否された時の対応
+                Toast toast = Toast.makeText(this,
+                        "これ以上なにもできません", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
     }
 
     @Override
@@ -189,17 +243,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         }
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        // 緯度の表示6
-        lat = location.getLatitude();
-        TextView textView6 = (TextView) findViewById(R.id.textView6);
-        String str1 = "Latitude:"+location.getLatitude();
-        textView6.setText(str1);
 
-        // 経度の表示
-        lng = location.getLongitude();
-    }
 
     @Override
     public void onProviderEnabled(String provider) {
@@ -225,9 +269,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     public void onButtonClick(View v) {
         switch (v.getId()) {
             case R.id.button:
-                String json = "{\"lat\":" + lat + ",\"lng\":" + lng + ",\"type\":" + type + ",\"dis\": "+ dis +"}";
-                Log.w("aaaaaaaaaaaaaaa",json);
-                post(json);
+                post();
                 Intent intent = new Intent(this, FortuneActivity.class);
                 startActivityForResult(intent, REQUESTCODE_TEST);
                 break;
@@ -257,8 +299,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         return super.onOptionsItemSelected(item);
     }
 
-    public void post(String json) {
+    public void post() {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        loc = readFile(fileName1);
+        lat = Double.parseDouble(loc);
+        loc = readFile(fileName2);
+        lng = Double.parseDouble(loc);
+        String json = "{\"lat\":" + lat + ",\"lng\":" + lng + ",\"type\":" + type + ",\"dis\": "+ dis +"}";
+        Log.w("aaaaaaaaaaaaaaa",json);
         RequestBody body = RequestBody.create(JSON, json);
 
         Request request = new Request.Builder()
@@ -306,5 +354,25 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String readFile(String file) {
+        String text = null;
+
+        // try-with-resources
+        try (FileInputStream fileInputStream = openFileInput(file);
+             BufferedReader reader= new BufferedReader(
+                     new InputStreamReader(fileInputStream, "UTF-8"))) {
+
+            String lineBuffer;
+            while( (lineBuffer = reader.readLine()) != null ) {
+                text = lineBuffer ;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return text;
     }
 }
