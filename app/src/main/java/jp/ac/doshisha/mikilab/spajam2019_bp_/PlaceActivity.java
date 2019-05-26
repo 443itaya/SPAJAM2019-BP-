@@ -60,11 +60,17 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             // キー・バリュー部：getStringメソッド
             // 配列部分：getJSONArrayメソッド＋getJSONObjectメソッドで繰り返し取得
             name = json.getString("name");
+            if(name == "null") name = "不明";
             tel = json.getString("tel");
+            if(tel == "null") tel = "不明";
             address = json.getString("address");
+            if(address == "null") address = "不明";
             open = json.getString("opening_now");
+            if(open == "null") open = "不明";
             price = json.getString("price_level");
+            if(price == "null") price = "不明";
             website = json.getString("website");
+            if(website == "null") website = "不明";
             lat = Double.parseDouble(json.getString("lat"));
             lng = Double.parseDouble(json.getString("lng"));
 

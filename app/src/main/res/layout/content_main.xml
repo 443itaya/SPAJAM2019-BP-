@@ -23,18 +23,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:layout_weight="1"
-        android:drawableStart="@drawable/ic_location_on_black_24dp"
-        android:text="NO LOCATION"
-        android:textColor="@color/normal_text"
-        android:textSize="@dimen/normal_textSize"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="140dp"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_location_on_black_24dp"
+            android:text="現在値"
+            android:textColor="@color/normal_text"
+            android:textSize="@dimen/normal_textSize"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
     <LinearLayout
