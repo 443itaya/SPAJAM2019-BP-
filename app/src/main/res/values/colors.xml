@@ -4,15 +4,15 @@
     <color name="colorPrimaryDark">#E4734F</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="radio_line1">#603f20</color>
-    <color name="radio_bg_checked1">#FF7846</color>
-    <color name="radio_bg_uncheck1">#FFA852</color>
+    <color name="radio_line1">#CE7A19</color>
+    <color name="radio_bg_checked1">#ffd5a4</color>
+    <color name="radio_bg_uncheck1">#CE7A19</color>
     <color name="radio_text_checked1">#0a0909</color>
     <color name="radio_text_uncheck1">#fcededed</color>
 
-    <color name="radio_line2">#603f20</color>
-    <color name="radio_bg_checked2">#FF7846</color>
-    <color name="radio_bg_uncheck2">#FFA852</color>
+    <color name="radio_line2">#0086A2</color>
+    <color name="radio_bg_checked2">#99eafc</color>
+    <color name="radio_bg_uncheck2">#0086A2</color>
     <color name="radio_text_checked2">#0a0909</color>
     <color name="radio_text_uncheck2">#fcededed</color>
 
