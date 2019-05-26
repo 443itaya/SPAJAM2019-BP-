@@ -39,7 +39,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     String name, tel, address, open, price, website;
     double lat, lng;
 
-    private String[] word = new String[5];
+    private String[] word = new String[9];
     private int ram;
 
     @Override
@@ -113,7 +113,11 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         word[2] = "ラッキーアニマルはねこだニャー";
         word[3] = "ねこを見つけるといいことがあるニャー";
         word[4] = "良い旅をニャー";
-        ram = (int)(Math.random()*5);
+        word[5] = "今日は忘れ物に気をつけてニャー";
+        word[6] = "今日はきっといいことが有るニャー";
+        word[7] = "大吉だニャー";
+        word[8] = "小吉だニャー";
+        ram = (int)(Math.random()*9);
         textView = findViewById(R.id.textView11);
         textView.setText(word[ram]);
     }
