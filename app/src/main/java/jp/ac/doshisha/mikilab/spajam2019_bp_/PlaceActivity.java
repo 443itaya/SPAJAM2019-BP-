@@ -39,6 +39,9 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     String name, tel, address, open, price, website;
     double lat, lng;
 
+    private String[] word = new String[5];
+    private int ram;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +107,15 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 //        textView.setText(website);
         textView.setText(Html.fromHtml("<a href="+website+">"+website+"</a>"));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        word[0] = "中吉ニャー";
+        word[1] = "時間に注意だニャー";
+        word[2] = "ラッキーアニマルはねこだニャー";
+        word[3] = "ねこを見つけるといいことがあるニャー";
+        word[4] = "良い旅をニャー";
+        ram = (int)(Math.random()*5);
+        textView = findViewById(R.id.textView11);
+        textView.setText(word[ram]);
     }
 
     @SuppressWarnings("deprecation")
