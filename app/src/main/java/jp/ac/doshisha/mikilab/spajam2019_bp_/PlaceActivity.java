@@ -7,6 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -67,8 +71,15 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             if(address.isEmpty() == true) address = "不明";
             open = json.getString("opening_now");
             if(open.isEmpty() == true) open = "不明";
+            else if(open.equals("True")) open = "営業中";
+            else if(open.equals("False")) open = "準備中";
             price = json.getString("price_level");
             if(price.isEmpty() == true) price = "不明";
+            else if(price.equals("0")) price = "無料";
+            else if(price.equals("1")) price = "お手頃";
+            else if(price.equals("2")) price = "普通";
+            else if(price.equals("3")) price = "高め";
+            else if(price.equals("4")) price = "豪遊☆";
             website = json.getString("website");
             if(website.isEmpty() == true) website = "不明";
             lat = Double.parseDouble(json.getString("lat"));
@@ -90,7 +101,20 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         textView = findViewById(R.id.textView9);
         textView.setText(price);
         textView = findViewById(R.id.textView10);
-        textView.setText(website);
+//        textView.setText(website);
+        textView.setText(Html.fromHtml("<a href="+website+">"+website+"</a>"));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String html){
+        Spanned spanned;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            spanned = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            spanned = Html.fromHtml(html);
+        }
+        return spanned;
     }
 
     @Override
