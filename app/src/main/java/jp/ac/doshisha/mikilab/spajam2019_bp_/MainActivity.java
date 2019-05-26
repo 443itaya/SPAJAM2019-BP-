@@ -301,11 +301,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     public void post() {
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        loc = readFile(fileName1);
-        lat = Double.parseDouble(loc);
-        loc = readFile(fileName2);
-        lng = Double.parseDouble(loc);
-        String json = "{\"lat\":" + lat + ",\"lng\":" + lng + ",\"type\":" + type + ",\"dis\": "+ dis +"}";
+//        loc = readFile(fileName1);
+//        lat = Double.parseDouble(loc);
+//        loc = readFile(fileName2);
+//        lng = Double.parseDouble(loc);
+        String json = "{\"lat\":34.7077928,\"lng\":135.5008888,\"type\":" + type + ",\"dis\": "+ dis +"}";
         Log.w("aaaaaaaaaaaaaaa",json);
         RequestBody body = RequestBody.create(JSON, json);
 
