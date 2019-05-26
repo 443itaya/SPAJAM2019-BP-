@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:drawable="@drawable/icon_website_pic"
+        android:width="@dimen/icon_size_res"
+        android:height="@dimen/icon_size_res"
+        />
+
+</layer-list >
