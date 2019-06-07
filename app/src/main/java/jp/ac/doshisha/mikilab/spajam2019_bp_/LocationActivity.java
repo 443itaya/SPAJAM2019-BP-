@@ -14,9 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -32,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import okhttp3.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,12 +53,21 @@ public class LocationActivity extends AppCompatActivity {
     private Boolean requestingLocationUpdates;
     private static final int REQUEST_CHECK_SETTINGS = 0x1;
     private int priority = 0;
-//    private TextView textView;
+    private TextView textView;
 //    private String textLog;
 
     private String lat, lng;
-    private String fileName1 = "lat.txt";
-    private String fileName2 = "lng.txt";
+
+    private int type = -1;
+    private int dis = -1;
+
+    int id;
+
+    String url = "https://asia-northeast1-spajam-pipeline.cloudfunctions.net/GetResult?message=ほげほげ";
+    private String res = "{“name”: “六本木 樓外樓“, “tel”: “075-365-3320\", “address”: “日本、〒600-8216 京都府京都市下京区東塩小路烏丸通塩小路下ル ＪＲ京都駅中央口 ホテルグランヴィア京都 １５Ｆ“, “opening_now”: “null”, “price_level”:“null”, “website”: “http://www.granvia-kyoto.co.jp/rest/roppongi.php“, “lat”: 34.985722, “lng”: 135.7585679}";
+    private static final int REQUESTCODE_TEST = 1;
+
+    private String fileName = "res.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +87,43 @@ public class LocationActivity extends AppCompatActivity {
 
         startLocationUpdates();
 
-//        textView = (TextView) findViewById(R.id.textView6);
+        textView = findViewById(R.id.textView6);
 
+        RadioGroup group = (RadioGroup)findViewById(R.id.radio_places);
+        id = IndexToId1(type);
+        group.check(id);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // TODO Auto-generated method stub
+                type = IdToIndex1(checkedId);
+                RadioButton radio = (RadioButton)findViewById(checkedId);
+            }
+        });
+        group = (RadioGroup)findViewById(R.id.radio_distance);
+        id = IndexToId2(dis);
+        group.check(id);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // TODO Auto-generated method stub
+                dis = IdToIndex2(checkedId);
+                RadioButton radio = (RadioButton)findViewById(checkedId);
+            }
+        });
 
+        saveFile(fileName, res);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Nav barの非表示化
+        View decor = this.getWindow().getDecorView();
+        decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     // locationのコールバックを受け取る
@@ -137,13 +179,15 @@ public class LocationActivity extends AppCompatActivity {
 //
 //            textLog += strBuf1;
 //            textView.setText(textLog);
-            Log.w("bbbbbbbbbbbbbbbbbbbbb",String.valueOf(fusedData[0]));
+            Log.w("bbbbbbbbbbbbbbbbbbbbb:lat",String.valueOf(fusedData[0]));
+            Log.w("bbbbbbbbbbbbbbbbbbbbb:lng",String.valueOf(fusedData[1]));
 
             lat = String.valueOf(fusedData[0]);
             lng = String.valueOf(fusedData[1]);
 
-            saveFile(fileName1, lat);
-            saveFile(fileName2, lng);
+            if(Double.parseDouble(lat) > 0 && Double.parseDouble(lng) > 0) {
+                textView.setText("現在値");
+            }
         }
 
     }
@@ -332,6 +376,85 @@ public class LocationActivity extends AppCompatActivity {
         super.onPause();
         // バッテリー消費を鑑みLocation requestを止める
         stopLocationUpdates();
+    }
+
+    public void onButtonClick(View v) {
+        switch (v.getId()) {
+            case R.id.button:
+                post();
+                Intent intent = new Intent(this, FortuneActivity.class);
+                startActivityForResult(intent, REQUESTCODE_TEST);
+                break;
+        }
+    }
+
+    public void post() {
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        String json = "{\"lat\":"+Double.parseDouble(lat)+",\"lng\":"+Double.parseDouble(lng)+",\"type\":" + type + ",\"dis\": "+ dis +"}";
+        Log.w("aaaaaaaaaaaaaaa",json);
+        RequestBody body = RequestBody.create(JSON, json);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                failMessage();
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                res = response.body().string();
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Log.w("onResponse", res);
+                        saveFile(fileName, res);
+                    }
+                });
+            }
+        });
+    }
+    private void failMessage() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Log.w("failMessage", "fail");
+            }
+        });
+    }
+
+
+    int IndexToId1(int index){
+        int tmp = -1;
+        if (index == 0) tmp = R.id.radioButton;
+        else if (index == 1) tmp = R.id.radioButton2;
+        else if (index == 2) tmp = R.id.radioButton3;
+        return tmp;
+    }
+    int IdToIndex1(int id){
+        int index = -1;
+        if (id == R.id.radioButton) index = 0;
+        else if (id == R.id.radioButton2) index = 1;
+        else if (id == R.id.radioButton3) index = 2;
+        return index;
+    }
+    int IndexToId2(int index){
+        int tmp = -1;
+        if (index == 0) tmp = R.id.radioButton4;
+        else if (index == 1) tmp = R.id.radioButton5;
+        else if (index == 2) tmp = R.id.radioButton6;
+        return tmp;
+    }
+    int IdToIndex2(int id){
+        int index = -1;
+        if (id == R.id.radioButton4) index = 0;
+        else if (id == R.id.radioButton5) index = 1;
+        else if (id == R.id.radioButton6) index = 2;
+        return index;
     }
 
 }
